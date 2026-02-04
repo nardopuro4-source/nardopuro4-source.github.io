@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nardo Puro — Catálogo Premium</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ============================================
+           VARIABLES GLOBALES Y RESET
+        ============================================ */
+        :root {
+            /* Paleta de colores premium */
+            --negro-profundo: #0a0a0a;
+            --negro-suave: #1a1a1a;
+            --dorado: #d4af37;
+            --dorado-oscuro: #b8972f;
+            --dorado-claro: #f4e4b8;
+            --blanco: #fafafa;
+            --blanco-puro: #ffffff;
+            --gris-elegante: #8a8a8a;
+            
+            /* Tipografías */
+            --font-display: 'Cinzel', serif;
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+            
+            /* Espaciado */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 6rem;
+            
+            /* Sombras */
+            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --shadow-strong: 0 12px 40px rgba(0, 0, 0, 0.2);
+            --shadow-dorado: 0 4px 20px rgba(212, 175, 55, 0.15);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--negro-profundo);
+            color: var(--blanco);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* ============================================
+           TEXTURA DE FONDO SUTIL
+        ============================================ */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.02) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* ============================================
+           PORTADA
+        ============================================ */
+        .portada {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: var(--spacing-md);
+            background: linear-gradient(135deg, var(--negro-profundo) 0%, var(--negro-suave) 100%);
+            overflow: hidden;
+        }
+        
+        .portada::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            animation: pulso 8s ease-in-out infinite;
+        }
+        
+        @keyframes pulso {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.5; }
+        }
+        
+        .portada-contenido {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            animation: aparecer 1.5s ease-out;
+        }
+        
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .logo-principal {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--spacing-sm);
+            text-transform: uppercase;
+            position: relative;
+            animation: brillar 3s ease-in-out infinite;
+        }
+        
+        @keyframes brillar {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+        
+        .linea-decorativa {
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--dorado), transparent);
+            margin: var(--spacing-md) auto;
+            animation: expandir 1.5s ease-out;
+        }
+        
+        @keyframes expandir {
+            from { width: 0; }
+            to { width: 200px; }
+        }
+        
+        .subtitulo-portada {
+            font-family: var(--font-heading);
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 300;
+            color: var(--gris-elegante);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: aparecer 2s ease-out 0.3s both;
+        }
+        
+        .separador-dorado {
+            color: var(--dorado);
+            margin: 0 var(--spacing-sm);
+        }
+        
+        .scroll-indicador {
+            position: absolute;
+            bottom: var(--spacing-lg);
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-xs);
+            animation: flotar 2s ease-in-out infinite;
+        }
+        
+        @keyframes flotar {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+        
+        .scroll-texto {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gris-elegante);
+        }
+        
+        .scroll-flecha {
+            width: 24px;
+            height: 24px;
+            border-left: 2px solid var(--dorado);
+            border-bottom: 2px solid var(--dorado);
+            transform: rotate(-45deg);
+        }
+        
+        /* ============================================
+           CONTENEDOR DEL CATÁLOGO
+        ============================================ */
+        .catalogo {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--spacing-xl) var(--spacing-md);
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* ============================================
+           PÁGINA DE FRAGANCIA
+        ============================================ */
+        .pagina-fragancia {
+            background: var(--negro-suave);
+            border-radius: 20px;
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-strong);
+            position: relative;
+            overflow: visible;
+            animation: deslizar-entrada 0.8s ease-out;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        @keyframes deslizar-entrada {
+            from { 
+                opacity: 0; 
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+        
+        /* Decoración esquina dorada */
+        .pagina-fragancia::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .contenido-fragancia {
+            display: grid;
+            grid-template-columns: 1.2fr 1.5fr;
+            gap: var(--spacing-lg);
+            align-items: center;
+            overflow: visible;
+        }
+        
+        /* ============================================
+           IMAGEN DEL PERFUME
+        ============================================ */
+        .contenedor-imagen {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: var(--spacing-md);
+            overflow: visible;
+        }
+        
+        .contenedor-imagen::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+            animation: pulso-suave 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulso-suave {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .imagen-perfume {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: var(--shadow-dorado);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            z-index: 1;
+            background: var(--blanco);
+            padding: 30px;
+            cursor: pointer;
+        }
+        
+        .imagen-perfume:hover {
+            transform: scale(1.5) translateY(-15px);
+            box-shadow: 0 25px 70px rgba(212, 175, 55, 0.6);
+            z-index: 10;
+        }
+        
+        /* Placeholder para imagen */
+        .placeholder-imagen {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 3/4;
+            background: linear-gradient(135deg, var(--dorado-oscuro) 0%, var(--dorado) 100%);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+            box-shadow: var(--shadow-dorado);
+        }
+        
+        .placeholder-icono {
+            font-size: 4rem;
+            color: var(--blanco-puro);
+            opacity: 0.9;
+        }
+        
+        .placeholder-texto {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--blanco-puro);
+            text-align: center;
+            opacity: 0.8;
+        }
+        
+        /* ============================================
+           INFORMACIÓN DE LA FRAGANCIA
+        ============================================ */
+        .info-fragancia {
+            padding: var(--spacing-md);
+        }
+        
+        .nombre-fragancia {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 600;
+            color: var(--dorado);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.2;
+            letter-spacing: 0.02em;
+        }
+        
+        .descripcion-fragancia {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--gris-elegante);
+            line-height: 1.8;
+            margin-bottom: var(--spacing-lg);
+            padding-left: var(--spacing-sm);
+            border-left: 2px solid var(--dorado);
+        }
+        
+        /* ============================================
+           SECCIÓN DE PRECIOS
+        ============================================ */
+        .seccion-precios {
+            background: rgba(212, 175, 55, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 12px;
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .titulo-precios {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dorado);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: var(--spacing-md);
+            text-align: center;
+        }
+        
+        .lista-precios {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+        
+        .item-precio {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .item-precio:hover {
+            background: rgba(212, 175, 55, 0.08);
+            border-color: rgba(212, 175, 55, 0.2);
+            transform: translateX(5px);
+        }
+        
+        /* Precio Premium destacado */
+        .item-precio.premium {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border: 2px solid var(--dorado);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .item-precio.premium::before {
+            content: '★';
+            position: absolute;
+            left: -5px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: var(--dorado);
+            opacity: 0.2;
+        }
+        
+        .item-precio.premium:hover {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.25) 0%, rgba(212, 175, 55, 0.1) 100%);
+            box-shadow: var(--shadow-dorado);
+        }
+        
+        .etiqueta-precio {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: var(--blanco);
+            letter-spacing: 0.02em;
+        }
+        
+        .item-precio.premium .etiqueta-precio {
+            font-weight: 600;
+            color: var(--dorado-claro);
+        }
+        
+        .valor-precio {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dorado);
+        }
+        
+        .item-precio.premium .valor-precio {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        /* ============================================
+           SECCIÓN DE RECARGA
+        ============================================ */
+        .seccion-recarga {
+            background: linear-gradient(135deg, rgba(138, 138, 138, 0.1) 0%, rgba(138, 138, 138, 0.05) 100%);
+            border: 1px dashed rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            padding: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+        
+        .titulo-recarga {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--gris-elegante);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: var(--spacing-sm);
+            text-align: center;
+        }
+        
+        .item-recarga {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .item-recarga:hover {
+            background: rgba(212, 175, 55, 0.08);
+            transform: translateX(5px);
+        }
+        
+        /* ============================================
+           FOOTER DEL CATÁLOGO
+        ============================================ */
+        .footer-catalogo {
+            text-align: center;
+            padding: var(--spacing-xl) var(--spacing-md);
+            margin-top: var(--spacing-xl);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dorado);
+            letter-spacing: 0.2em;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .footer-texto {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--gris-elegante);
+            line-height: 1.6;
+        }
+        
+        .footer-contacto {
+            margin-top: var(--spacing-md);
+            font-size: 0.85rem;
+            color: var(--dorado-claro);
+        }
+        
+        /* ============================================
+           RESPONSIVO - TABLET
+        ============================================ */
+        @media (max-width: 1024px) {
+            :root {
+                --spacing-lg: 3rem;
+                --spacing-xl: 4rem;
+            }
+            
+            .contenido-fragancia {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+            
+            .contenedor-imagen {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+        
+        /* ============================================
+           RESPONSIVO - MÓVIL
+        ============================================ */
+        @media (max-width: 768px) {
+            :root {
+                --spacing-md: 1.5rem;
+                --spacing-lg: 2rem;
+                --spacing-xl: 3rem;
+            }
+            
+            .portada {
+                padding: var(--spacing-sm);
+            }
+            
+            .logo-principal {
+                letter-spacing: 0.2em;
+            }
+            
+            .linea-decorativa {
+                width: 150px;
+            }
+            
+            .subtitulo-portada {
+                font-size: 1rem;
+                letter-spacing: 0.1em;
+            }
+            
+            .scroll-indicador {
+                bottom: var(--spacing-md);
+            }
+            
+            .catalogo {
+                padding: var(--spacing-md) var(--spacing-sm);
+            }
+            
+            .pagina-fragancia {
+                padding: var(--spacing-md);
+                margin-bottom: var(--spacing-md);
+            }
+            
+            .contenedor-imagen {
+                padding: var(--spacing-sm);
+            }
+            
+            .imagen-perfume,
+            .placeholder-imagen {
+                max-width: 350px;
+            }
+            
+            .info-fragancia {
+                padding: var(--spacing-sm);
+            }
+            
+            .nombre-fragancia {
+                font-size: 2rem;
+            }
+            
+            .descripcion-fragancia {
+                font-size: 0.95rem;
+            }
+            
+            .item-precio {
+                padding: var(--spacing-sm);
+                flex-direction: column;
+                gap: var(--spacing-xs);
+                text-align: center;
+            }
+            
+            .etiqueta-precio {
+                font-size: 0.9rem;
+            }
+            
+            .valor-precio {
+                font-size: 1.2rem;
+            }
+            
+            .item-precio.premium .valor-precio {
+                font-size: 1.4rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo-principal {
+                font-size: 2.5rem;
+                letter-spacing: 0.15em;
+            }
+            
+            .subtitulo-portada {
+                font-size: 0.85rem;
+            }
+            
+            .separador-dorado {
+                margin: 0 var(--spacing-xs);
+            }
+            
+            .nombre-fragancia {
+                font-size: 1.8rem;
+            }
+            
+            .seccion-precios,
+            .seccion-recarga {
+                padding: var(--spacing-sm);
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- ============================================
+         PORTADA
+    ============================================ -->
+    <section class="portada">
+        <div class="portada-contenido">
+            <h1 class="logo-principal">NARDO PURO</h1>
+            <div class="linea-decorativa"></div>
+            <p class="subtitulo-portada">
+                Perfumería Premium 
+                <span class="separador-dorado">·</span> 
+                Inspiraciones 1.1
+            </p>
+        </div>
+        
+        <div class="scroll-indicador">
+            <span class="scroll-texto">Explorar</span>
+            <div class="scroll-flecha"></div>
+        </div>
+    </section>
+    
+    <!-- ============================================
+         CATÁLOGO DE FRAGANCIAS
+    ============================================ -->
+    <main class="catalogo">
+        
+        <!-- ========== FRAGANCIA 1: EJEMPLO ========== -->
+        <article class="pagina-fragancia">
+            <div class="contenido-fragancia">
+                
+                <!-- Imagen del perfume -->
+                <div class="contenedor-imagen">
+                    <img src="1.png" alt="Nombre de Fragancia" class="imagen-perfume">
+                </div>
+                
+                <!-- Información de la fragancia -->
+                <div class="info-fragancia">
+                    <h2 class="nombre-fragancia">Khamrah Qahwa Lattafa</h2>
+                    
+                    <p class="descripcion-fragancia">
+                        Fragancia de la familia olfativa Oriental Vainilla para Hombres y Mujeres.
+                        Khamrah Qahwa se lanzó en 2023. Las Notas de Salida son canela, cardamomo
+                        y jengibre; las Notas de Corazón son praliné, Frutas confitadas y flores 
+                        blancas; las Notas de Fondo son vainilla, café, haba tonka, benjuí y almizcle.
+                    </p>
+                    
+                    <!-- Sección de precios principales -->
+                    <div class="seccion-precios">
+                        <h3 class="titulo-precios">Presentaciones</h3>
+                        <div class="lista-precios">
+                            
+                            <!-- Precio Premium - Destacado -->
+                            <div class="item-precio premium">
+                                <span class="etiqueta-precio">1.1 / Premium – 100 ML</span>
+                                <span class="valor-precio">$160.000</span>
+                            </div>
+                            
+                            <!-- Precios preparados -->
+                            <div class="item-precio">
+                                <span class="etiqueta-precio">Preparada – 100 ML</span>
+                                <span class="valor-precio">$60.000</span>
+                            </div>
+                            
+                            <div class="item-precio">
+                                <span class="etiqueta-precio">Preparada – 50 ML</span>
+                                <span class="valor-precio">$35.000</span>
+                            </div>
+                            
+                            <div class="item-precio">
+                                <span class="etiqueta-precio">Preparada – 30 ML</span>
+                                <span class="valor-precio">$25.000</span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <!-- Sección de recarga -->
+                    <div class="seccion-recarga">
+                        <h3 class="titulo-recarga">Servicio de Recarga</h3>
+                        <div class="item-recarga">
+                            <span class="etiqueta-precio">Recarga frasco original</span>
+                            <span class="valor-precio">$50.000</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </article>
+        
+        <!-- ========== FRAGANCIA 2: DUPLICA ESTA ESTRUCTURA ========== -->
+        <article class="pagina-fragancia">
+            <div class="contenido-fragancia">
+                
+                <div class="contenedor-imagen">
+                    <img src="2.png" alt="Nombre de Fragancia" class="imagen-perfume">
+                </div>
+                
+                <div class="info-fragancia">
+                    <h2 class="nombre-fragancia">Victorinox Swiss Army</h2>
+                    
+                    <p class="descripcion-fragancia">
+                        Fragancia de la familia olfativa Amaderada Aromática para Hombres.
+                        Se lanzó en 1997. Las Notas de Salida son menta, notas verdes, bergamota,
+                        yuzu y jengibre; las Notas de Corazón son lavanda, romero, hojas de violeta,
+                        flor de las nieves (flor de edelweiss) y geranio; las Notas de Fondo son
+                        ciprés, abeto balsámico, cedro, almizcle y ámbar.
+                    </p>
+                    
+                    <div class="seccion-precios">
+                        <h3 class="titulo-precios">Presentaciones</h3>
+                        <div class="lista-precios">
+                            
+                            <div class="item-precio premium">
+                                <span class="etiqueta-precio">1.1 / Premium – 100 ML</span>
+                                <span class="valor-precio">$160.000</span>
+                            </div>
+                            
+                            <div class="item-precio">
+                                <span class="etiqueta-precio">Preparada – 100 ML</span>
+                                <span class="valor-precio">$60.000</span>
+                            </div>
+                            
+                            <div class="item-precio">
+                                <span class="etiqueta-precio">Preparada – 50 ML</span>
+                                <span class="valor-precio">$35.000</span>
+                            </div>
+                            
+                            <div class="item-precio">
+                                <span class="etiqueta-precio">Preparada – 30 ML</span>
+                                <span class="valor-precio">$25.000</span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="seccion-recarga">
+                        <h3 class="titulo-recarga">Servicio de Recarga</h3>
+                        <div class="item-recarga">
+                            <span class="etiqueta-precio">Recarga frasco original</span>
+                            <span class="valor-precio">$50.000</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </article>
+        
+        <!-- ========== FRAGANCIA 3: EJEMPLO ADICIONAL ========== -->
+        <article class="pagina-fragancia">
+            <div class="contenido-fragancia">
+                
+                <div class="contenedor-imagen">
+                    <img src="3.png" alt="Nombre de Fragancia" class="imagen-perfume">
+                </div>
+                
+                <div class="info-fragancia">
+                    <h2 class="nombre-fragancia">Givenchy Blue Label</h2>
+                    
+                    <p class="descripcion-fragancia">
+                        Fragancia de la familia olfativa Amaderada Especiada para Hombres. 
+                        Givenchy pour Homme Blue Label se lanzó en 2004. Fue creada por
+                        Alberto Morillas y Ilias Ermenidis. Las Notas de Salida son
+                        toronja (pomelo) y bergamota; las Notas de Corazón son pimienta, 
+                        lavanda, cardamomo y abrótano; las Notas de Fondo son cedro, 
+                        vetiver y incienso de olíbano
+                    </p>
+                    
+                    <div class="seccion-precios">
+                        <h3 class="titulo-precios">Presentaciones</h3>
+                        <div class="lista-precios">
+                            
+                            <div class="item-precio premium">
+                                <span class="etiqueta-precio">1.1 / Premium – 100 ML</span>
+                                <span class="valor-precio">$160.000</span>
+                            </div>
+                            
+                            <div class="item-precio">
+                                <span class="etiqueta-precio">Preparada – 100 ML</span>
+                                <span class="valor-precio">$60.000</span>
+                            </div>
+                            
+                            <div class="item-precio">
+                                <span class="etiqueta-precio">Preparada – 50 ML</span>
+                                <span class="valor-precio">$35.000</span>
+                            </div>
+                            
+                            <div class="item-precio">
+                                <span class="etiqueta-precio">Preparada – 30 ML</span>
+                                <span class="valor-precio">$25.000</span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="seccion-recarga">
+                        <h3 class="titulo-recarga">Servicio de Recarga</h3>
+                        <div class="item-recarga">
+                            <span class="etiqueta-precio">Recarga frasco original</span>
+                            <span class="valor-precio">$50.000</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </article>
+
+         <!-- ========== FRAGANCIA 4: DUPLICA ESTA ESTRUCTURA ========== -->
+        <article class="pagina-fragancia">
+            <div class="contenido-fragancia">
+                
+                <div class="contenedor-imagen">
+                    <img src="4.png" alt="Nombre de Fragancia" class="imagen-perfume">
+                </div>
+                
+                <div class="info-fragancia">
+                    <h2 class="nombre-fragancia">Ferrari Black</h2>
+                    
+                    <p class="descripcion-fragancia">
+                        Fragancia de la familia olfativa Aromática Fougère para Hombres. 
+                        Ferrari Black se lanzó en 1999. Las Notas de Salida son manzana 
+                        roja, ciruela, lima (limón verde) y bergamota; las Notas de 
+                        Corazón son canela, jazmín, cardamomo y rosa; las Notas de Fondo 
+                        son vainilla, ámbar, cedro y almizcle.
+                    </p>
+                    
+                    <div class="seccion-precios">
+                        <h3 class="titulo-precios">Presentaciones</h3>
+                        <div class="lista-precios">
+                            
+                            <div class="item-precio premium">
+                                <span class="etiqueta-precio">1.1 / Premium – 100 ML</span>
+                                <span class="valor-precio">$160.000</span>
+                            </div>
+                            
+                            <div class="item-precio">
+                                <span class="etiqueta-precio">Preparada – 100 ML</span>
+                                <span class="valor-precio">$60.000</span>
+                            </div>
+                            
+                            <div class="item-precio">
+                                <span class="etiqueta-precio">Preparada – 50 ML</span>
+                                <span class="valor-precio">$35.000</span>
+                            </div>
+                            
+                            <div class="item-precio">
+                                <span class="etiqueta-precio">Preparada – 30 ML</span>
+                                <span class="valor-precio">$25.000</span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="seccion-recarga">
+                        <h3 class="titulo-recarga">Servicio de Recarga</h3>
+                        <div class="item-recarga">
+                            <span class="etiqueta-precio">Recarga frasco original</span>
+                            <span class="valor-precio">$50.000</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </article>
+        
+    </main>
+    
+    <!-- ============================================
+         FOOTER
+    ============================================ -->
+    <footer class="footer-catalogo">
+        <h2 class="footer-logo">NARDO PURO</h2>
+        <p class="footer-texto">
+            Perfumería Premium<br>
+            Fragancias de alta calidad inspiradas en las mejores casas del mundo
+        </p>
+        <p class="footer-contacto">
+            Catálogo Inspiraciones 1.1 · 2026
+        </p>
+    </footer>
+    
+</body>
+</html>
