@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nardo Puro — Catálogo de fragancias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#110D08;
+  --surface:#1C150D;
+  --surface-2:#251C12;
+  --line:rgba(198,160,82,0.20);
+  --gold:#C6A052;
+  --gold-soft:#E7D2A0;
+  --ivory:#F4EEE1;
+  --stone:#A0937C;
+  --rose:#C98C86;
+  --bronze:#9C7F52;
+  --steel:#7C93A8;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--bg);
+  background-image:radial-gradient(circle at 50% 0%, #201709 0%, #110D08 55%);
+  color:var(--ivory);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{color:inherit;}
+
+/* ---------- Hero ---------- */
+.hero{
+  text-align:center;
+  padding:60px 24px 30px;
+}
+.mark{display:flex;justify-content:center;margin-bottom:14px;}
+.mark img{width:38px;height:auto;display:block;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.35));}
+.hero h1{
+  font-family:'Playfair Display',Georgia,serif;
+  font-weight:600;
+  font-size:clamp(2.1rem,7vw,3.1rem);
+  margin:0 0 8px;
+  letter-spacing:0.01em;
+}
+.tagline{
+  font-family:'Playfair Display',Georgia,serif;
+  font-style:italic;
+  color:var(--gold-soft);
+  font-size:1.05rem;
+  margin:0 0 16px;
+}
+.intro{
+  color:var(--stone);
+  font-size:0.95rem;
+  line-height:1.6;
+  max-width:420px;
+  margin:0 auto;
+}
+
+/* ---------- Controls ---------- */
+.controls{
+  max-width:860px;
+  margin:0 auto;
+  padding:0 20px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.search-wrap input{
+  width:100%;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:13px 16px;
+  color:var(--ivory);
+  font-family:'Inter',sans-serif;
+  font-size:0.95rem;
+}
+.search-wrap input::placeholder{color:var(--stone);}
+.search-wrap input:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+
+.filters-row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+}
+.pills{display:flex;gap:8px;flex-wrap:wrap;}
+.pill{
+  background:transparent;
+  border:1px solid var(--line);
+  color:var(--stone);
+  padding:8px 16px;
+  border-radius:999px;
+  font-family:'Inter',sans-serif;
+  font-size:0.85rem;
+  cursor:pointer;
+  transition:border-color .2s ease,color .2s ease,background .2s ease;
+}
+.pill:hover{border-color:var(--gold);color:var(--gold-soft);}
+.pill.active{background:rgba(198,160,82,0.14);border-color:var(--gold);color:var(--gold-soft);}
+.pill:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+
+select#marcaSelect{
+  background:var(--surface);
+  border:1px solid var(--line);
+  color:var(--ivory);
+  padding:10px 14px;
+  border-radius:12px;
+  font-family:'Inter',sans-serif;
+  font-size:0.85rem;
+  max-width:220px;
+}
+select#marcaSelect:focus-visible{outline:2px solid var(--gold);}
+
+/* ---------- Aroma finder ---------- */
+.aroma-section{
+  max-width:1100px;
+  margin:8px auto 28px;
+  padding:0 24px;
+  text-align:center;
+}
+.aroma-title{
+  font-family:'Playfair Display',Georgia,serif;
+  font-weight:600;
+  font-size:clamp(1.3rem,3.2vw,1.7rem);
+  color:var(--ivory);
+  margin:0 0 6px;
+}
+.aroma-subtitle{
+  color:var(--stone);
+  font-size:0.88rem;
+  margin:0 0 20px;
+}
+.aroma-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(112px,1fr));
+  gap:10px;
+  max-width:920px;
+  margin:0 auto;
+}
+.aroma-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:16px 8px 12px;
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  transition:border-color .2s ease,background .2s ease,transform .2s ease;
+  font-family:'Inter',sans-serif;
+}
+.aroma-card:hover{border-color:var(--gold);transform:translateY(-2px);}
+.aroma-card:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+.aroma-card .aroma-emoji{font-size:1.6rem;line-height:1;}
+.aroma-card .aroma-label{
+  font-size:0.72rem;
+  letter-spacing:0.02em;
+  color:var(--stone);
+  font-weight:600;
+  text-transform:uppercase;
+}
+.aroma-card.active{
+  background:rgba(198,160,82,0.16);
+  border-color:var(--gold);
+}
+.aroma-card.active .aroma-label{color:var(--gold-soft);}
+.aroma-clear{
+  margin-top:18px;
+  background:transparent;
+  border:1px solid var(--line);
+  color:var(--stone);
+  padding:8px 18px;
+  border-radius:999px;
+  font-family:'Inter',sans-serif;
+  font-size:0.8rem;
+  cursor:pointer;
+  transition:border-color .2s ease,color .2s ease;
+}
+.aroma-clear:hover{border-color:var(--gold);color:var(--gold-soft);}
+.aroma-clear[hidden]{display:none;}
+
+.counter{
+  text-align:center;
+  color:var(--stone);
+  font-size:0.82rem;
+  margin:22px 0 18px;
+}
+
+/* ---------- Grid ---------- */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  gap:14px;
+  max-width:1400px;
+  margin:0 auto;
+  padding:0 20px 40px;
+}
+.card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:16px;
+  overflow:hidden;
+  cursor:pointer;
+  padding:0;
+  text-align:left;
+  display:flex;
+  flex-direction:column;
+  color:inherit;
+  opacity:0;
+  transform:translateY(14px) scale(0.98);
+  animation:cardIn .6s ease forwards;
+  transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease;
+}
+.card:hover,.card:focus-visible{
+  transform:translateY(-4px);
+  box-shadow:0 18px 36px -18px rgba(0,0,0,0.6);
+  border-color:var(--gold);
+  outline:none;
+}
+.card.hidden{display:none;}
+@keyframes cardIn{to{opacity:1;transform:translateY(0) scale(1);}}
+
+.card-frame{
+  position:relative;
+  aspect-ratio:941/1672;
+  overflow:hidden;
+  background:var(--surface-2);
+}
+.card-frame img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .5s ease;
+  opacity:0;
+}
+.card-frame img.loaded{opacity:1;}
+.card:hover .card-frame img{transform:scale(1.045);}
+
+.card-caption{padding:11px 13px 13px;display:flex;flex-direction:column;gap:4px;}
+.card-nombre{font-family:'Playfair Display',Georgia,serif;font-size:0.98rem;line-height:1.28;color:var(--ivory);}
+.card-marca{font-size:0.76rem;color:var(--stone);}
+.card-tag{
+  align-self:flex-start;
+  margin-top:4px;
+  font-size:0.66rem;
+  letter-spacing:0.03em;
+  padding:3px 9px;
+  border-radius:999px;
+  color:#1a1206;
+  font-weight:600;
+}
+.tag-mujeres{background:var(--rose);}
+.tag-hombres{background:var(--steel);}
+.tag-unisex{background:var(--bronze);}
+
+/* ---------- Empty state ---------- */
+.empty{
+  text-align:center;
+  color:var(--stone);
+  padding:50px 20px;
+  font-family:'Playfair Display',Georgia,serif;
+  font-style:italic;
+  font-size:1.05rem;
+}
+.empty button{
+  display:block;
+  margin:16px auto 0;
+  background:transparent;
+  border:1px solid var(--line);
+  color:var(--gold-soft);
+  padding:8px 18px;
+  border-radius:999px;
+  font-family:'Inter',sans-serif;
+  font-style:normal;
+  font-size:0.82rem;
+  cursor:pointer;
+}
+.empty button:hover{border-color:var(--gold);}
+
+/* ---------- Footer ---------- */
+footer{
+  text-align:center;
+  color:var(--stone);
+  font-size:0.76rem;
+  line-height:1.7;
+  padding:36px 24px 60px;
+  max-width:560px;
+  margin:20px auto 0;
+  border-top:1px solid var(--line);
+}
+
+/* ---------- Lightbox ---------- */
+.lightbox{
+  position:fixed;inset:0;
+  background:rgba(8,6,3,0.94);
+  display:flex;align-items:center;justify-content:center;
+  z-index:1000;padding:20px;
+  animation:fadeIn .25s ease;
+}
+.lightbox[hidden]{display:none;}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+.lb-content{
+  max-width:480px;width:100%;max-height:92vh;
+  display:flex;flex-direction:column;align-items:center;
+  animation:scaleIn .3s ease;
+}
+@keyframes scaleIn{from{transform:scale(.96);opacity:0}to{transform:scale(1);opacity:1}}
+
+#lbImg{max-width:100%;max-height:66vh;border-radius:14px;box-shadow:0 30px 60px -20px rgba(0,0,0,.7);object-fit:contain;}
+
+.lb-caption{text-align:center;margin-top:16px;padding:0 40px;}
+.lb-caption h2{font-family:'Playfair Display',Georgia,serif;color:var(--ivory);font-size:1.25rem;margin:0 0 4px;font-weight:600;}
+.lb-caption p{color:var(--stone);font-size:0.85rem;margin:0;}
+.lb-caption .card-tag{margin-top:8px;}
+.lb-position{color:var(--stone);font-size:0.74rem;margin-top:12px;letter-spacing:0.04em;}
+
+.lb-close,.lb-prev,.lb-next{
+  position:absolute;
+  background:rgba(255,255,255,0.07);
+  border:1px solid var(--line);
+  color:var(--ivory);
+  width:42px;height:42px;
+  border-radius:50%;
+  font-size:1.3rem;
+  line-height:1;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .2s ease,background .2s ease;
+}
+.lb-close:hover,.lb-prev:hover,.lb-next:hover{border-color:var(--gold);background:rgba(198,160,82,0.14);}
+.lb-close{top:18px;right:18px;}
+.lb-prev{left:14px;top:50%;transform:translateY(-50%);}
+.lb-next{right:14px;top:50%;transform:translateY(-50%);}
+@media (max-width:560px){.lb-prev{left:4px;}.lb-next{right:4px;}.lb-close{top:10px;right:10px;}}
+
+/* ---------- Accessibility ---------- */
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important;}
+}
+
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="mark"><img src="imagenes/logo-nardo-puro.png" alt="Nardo Puro" width="38" height="47"></div>
+  <h1>Nardo Puro</h1>
+  <p class="tagline">Fragancias que inspiran</p>
+  <p class="intro">Explorar, buscar y elegir.</p>
+</header>
+
+<div class="controls">
+  <div class="search-wrap">
+    <input id="search" type="text" placeholder="Buscar por nombre, marca o código (ej. F90, M14)" autocomplete="off">
+  </div>
+  <div class="filters-row">
+    <div class="pills" id="genderPills">
+      <button type="button" class="pill active" data-genero="Todas">Todas</button>
+      <button type="button" class="pill" data-genero="Mujeres">Para mujeres</button>
+      <button type="button" class="pill" data-genero="Hombres">Para hombres</button>
+      <button type="button" class="pill" data-genero="Unisex">Unisex</button>
+    </div>
+    <select id="marcaSelect" aria-label="Filtrar por marca">
+      <option value="Todas">Todas las marcas</option>
+    </select>
+  </div>
+</div>
+
+<section class="aroma-section" aria-labelledby="aromaTitle">
+  <h2 id="aromaTitle" class="aroma-title">¿Qué tipo de aroma buscas?</h2>
+  <p class="aroma-subtitle">Elige una o varias opciones y te mostramos las fragancias que combinan.</p>
+  <div class="aroma-grid" id="aromaGrid"></div>
+  <button type="button" class="aroma-clear" id="aromaClear">Limpiar filtros de aroma</button>
+</section>
+
+<p class="counter" id="counter">Fragancias</p>
+
+<main class="grid" id="grid"></main>
+
+<p class="empty" id="emptyState" hidden>
+  No encontramos fragancias con ese filtro.
+  <button type="button" id="clearFilters">Limpiar filtros</button>
+</p>
+
+<footer>
+  Catálogo de Nardo Puro
+</footer>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lb-close" id="lbClose" aria-label="Cerrar">&times;</button>
+  <button class="lb-prev" id="lbPrev" aria-label="Anterior">&#8249;</button>
+  <button class="lb-next" id="lbNext" aria-label="Siguiente">&#8250;</button>
+  <div class="lb-content">
+    <img id="lbImg" alt="">
+    <div class="lb-caption">
+      <h2 id="lbNombre"></h2>
+      <p id="lbMarca"></p>
+      <span id="lbGenero" class="card-tag"></span>
+      <p class="lb-position" id="lbPosition"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+const DATA = [{"id": 1, "nombre": "Kim Kardashian", "marca": "", "genero": "Mujeres", "img": "imagenes/F90.jpg", "cod": "F90", "categorias": ["DULCE", "FLORAL"]}, {"id": 2, "nombre": "La Vie Est Belle", "marca": "Lancôme", "genero": "Mujeres", "img": "imagenes/F50.jpg", "cod": "F50", "categorias": ["AFRUTADO", "DULCE", "FLORAL", "GOURMAND"]}, {"id": 3, "nombre": "Burberry Women", "marca": "Burberry", "genero": "Mujeres", "img": "imagenes/F10.jpg", "cod": "F10", "categorias": ["AFRUTADO", "AMADERADO", "FLORAL"]}, {"id": 4, "nombre": "Halloween", "marca": "Halloween", "genero": "Mujeres", "img": "imagenes/F35.jpg", "cod": "F35", "categorias": ["AROMATICO", "FLORAL", "FRESCO"]}, {"id": 5, "nombre": "Meow", "marca": "Katy Perry", "genero": "Mujeres", "img": "imagenes/F34.jpg", "cod": "F34", "categorias": ["AFRUTADO", "DULCE", "FLORAL", "GOURMAND"]}, {"id": 6, "nombre": "DKNY Be Delicious", "marca": "Donna Karan", "genero": "Mujeres", "img": "imagenes/F80.jpg", "cod": "F80", "categorias": ["AFRUTADO", "FLORAL", "VERDE_NATURAL"]}, {"id": 7, "nombre": "Ralph", "marca": "Ralph Lauren", "genero": "Mujeres", "img": "imagenes/F72.jpg", "cod": "F72", "categorias": ["AFRUTADO", "CITRICO", "FLORAL", "FRESCO"]}, {"id": 8, "nombre": "Fantasy", "marca": "Britney Spears", "genero": "Mujeres", "img": "imagenes/F9.jpg", "cod": "F9", "categorias": ["AFRUTADO", "DULCE", "FLORAL", "GOURMAND"]}, {"id": 9, "nombre": "Bleecker Street", "marca": "Bond No. 9", "genero": "Unisex", "img": "imagenes/F58.jpg", "cod": "F58", "categorias": ["AFRUTADO", "AMADERADO", "GOURMAND"]}, {"id": 10, "nombre": "Burberry Her", "marca": "", "genero": "Mujeres", "img": "imagenes/F84.jpg", "cod": "F84", "categorias": ["AFRUTADO", "DULCE", "GOURMAND"]}, {"id": 11, "nombre": "Hugo Woman", "marca": "", "genero": "Mujeres", "img": "imagenes/F33.jpg", "cod": "F33", "categorias": ["AFRUTADO", "FLORAL", "FRESCO"]}, {"id": 12, "nombre": "Tommy Girl", "marca": "", "genero": "Mujeres", "img": "imagenes/F73.jpg", "cod": "F73", "categorias": ["CITRICO", "FLORAL", "FRESCO"]}, {"id": 13, "nombre": "L'eau d'Issey", "marca": "", "genero": "Mujeres", "img": "imagenes/F31.jpg", "cod": "F31", "categorias": ["FLORAL", "FRESCO"]}, {"id": 14, "nombre": "Thank U, Next", "marca": "", "genero": "Mujeres", "img": "imagenes/F4.jpg", "cod": "F4", "categorias": ["AFRUTADO", "DULCE", "GOURMAND"]}, {"id": 15, "nombre": "Mod Vanilla", "marca": "", "genero": "Mujeres", "img": "imagenes/F3.jpg", "cod": "F3", "categorias": ["DULCE", "GOURMAND"]}, {"id": 16, "nombre": "Sweet Like Candy", "marca": "", "genero": "Mujeres", "img": "imagenes/F5.jpg", "cod": "F5", "categorias": ["AFRUTADO", "DULCE", "GOURMAND"]}, {"id": 17, "nombre": "Cloud", "marca": "Ariana Grande", "genero": "Mujeres", "img": "imagenes/F1.jpg", "cod": "F1", "categorias": ["DULCE", "GOURMAND"]}, {"id": 18, "nombre": "Cloud Pink", "marca": "Ariana Grande", "genero": "Mujeres", "img": "imagenes/F2.jpg", "cod": "F2", "categorias": ["AFRUTADO", "DULCE", "FLORAL"]}, {"id": 19, "nombre": "Omnia Amethyste", "marca": "Bvlgari", "genero": "Mujeres", "img": "imagenes/F11.jpg", "cod": "F11", "categorias": ["AFRUTADO", "ATALCADO", "FLORAL"]}, {"id": 20, "nombre": "Omnia Coral", "marca": "Bvlgari", "genero": "Mujeres", "img": "imagenes/F13.jpg", "cod": "F13", "categorias": ["AFRUTADO", "FLORAL", "FRESCO"]}, {"id": 21, "nombre": "Omnia Crystalline", "marca": "Bvlgari", "genero": "Mujeres", "img": "imagenes/F12.jpg", "cod": "F12", "categorias": ["FLORAL", "FRESCO"]}, {"id": 22, "nombre": "Toy 2", "marca": "Moschino", "genero": "Mujeres", "img": "imagenes/F55.jpg", "cod": "F55", "categorias": ["CITRICO", "FLORAL", "FRESCO"]}, {"id": 23, "nombre": "Toy 2 Bubble Gum", "marca": "Moschino", "genero": "Mujeres", "img": "imagenes/F54.jpg", "cod": "F54", "categorias": ["AFRUTADO", "DULCE"]}, {"id": 24, "nombre": "Moschino Funny!", "marca": "Moschino", "genero": "Mujeres", "img": "imagenes/F53.jpg", "cod": "F53", "categorias": ["CITRICO", "FLORAL", "FRESCO"]}, {"id": 25, "nombre": "J'adore", "marca": "Dior", "genero": "Mujeres", "img": "imagenes/F27.jpg", "cod": "F27", "categorias": ["AFRUTADO", "FLORAL"]}, {"id": 26, "nombre": "Miss Dior Blooming Bouquet", "marca": "Dior", "genero": "Mujeres", "img": "imagenes/F37.jpg", "cod": "F37", "categorias": ["ATALCADO", "FLORAL"]}, {"id": 27, "nombre": "Escape", "marca": "Calvin Klein", "genero": "Mujeres", "img": "imagenes/F15.jpg", "cod": "F15", "categorias": ["AFRUTADO", "FLORAL", "FRESCO"]}, {"id": 28, "nombre": "CK IN2U for Her", "marca": "Calvin Klein", "genero": "Mujeres", "img": "imagenes/F14.jpg", "cod": "F14", "categorias": ["AFRUTADO", "DULCE", "FLORAL"]}, {"id": 29, "nombre": "212", "marca": "Carolina Herrera", "genero": "Mujeres", "img": "imagenes/F21.jpg", "cod": "F21", "categorias": ["ATALCADO", "FLORAL", "FRESCO"]}, {"id": 30, "nombre": "212 VIP", "marca": "Carolina Herrera", "genero": "Mujeres", "img": "imagenes/F20.jpg", "cod": "F20", "categorias": ["AFRUTADO", "DULCE", "GOURMAND"]}, {"id": 31, "nombre": "212 VIP Rosé", "marca": "Carolina Herrera", "genero": "Mujeres", "img": "imagenes/F24.jpg", "cod": "F24", "categorias": ["AFRUTADO", "DULCE", "FLORAL"]}, {"id": 32, "nombre": "CH (2015)", "marca": "Carolina Herrera", "genero": "Mujeres", "img": "imagenes/F16.jpg", "cod": "F16", "categorias": ["AFRUTADO", "DULCE", "FLORAL"]}, {"id": 33, "nombre": "Good Girl", "marca": "Carolina Herrera", "genero": "Mujeres", "img": "imagenes/F17.jpg", "cod": "F17", "categorias": ["CALIDO_AMBARADO", "DULCE", "FLORAL", "GOURMAND"]}, {"id": 34, "nombre": "Good Girl Fantastic Pink", "marca": "Carolina Herrera", "genero": "Mujeres", "img": "imagenes/F94.jpg", "cod": "F94", "categorias": ["AFRUTADO", "DULCE", "FLORAL"]}, {"id": 35, "nombre": "212 Sexy", "marca": "Carolina Herrera", "genero": "Mujeres", "img": "imagenes/F23.jpg", "cod": "F23", "categorias": ["ATALCADO", "DULCE", "FLORAL"]}, {"id": 36, "nombre": "Good Girl Blush", "marca": "Carolina Herrera", "genero": "Mujeres", "img": "imagenes/F19.jpg", "cod": "F19", "categorias": ["DULCE", "FLORAL", "GOURMAND"]}, {"id": 37, "nombre": "212 Heroes Forever Young", "marca": "Carolina Herrera", "genero": "Mujeres", "img": "imagenes/F22.jpg", "cod": "F22", "categorias": ["AFRUTADO", "FLORAL", "FRESCO"]}, {"id": 38, "nombre": "La Bomba", "marca": "Carolina Herrera", "genero": "Mujeres", "img": "imagenes/F18.jpg", "cod": "F18", "categorias": ["AFRUTADO", "DULCE", "FLORAL"]}, {"id": 39, "nombre": "212 VIP Wild Party", "marca": "Carolina Herrera", "genero": "Mujeres", "img": "imagenes/F25.jpg", "cod": "F25", "categorias": ["AFRUTADO", "DULCE", "FRESCO"]}, {"id": 40, "nombre": "Very Good Girl Elixir", "marca": "Carolina Herrera", "genero": "Mujeres", "img": "imagenes/F83.jpg", "cod": "F83", "categorias": ["AFRUTADO", "CALIDO_AMBARADO", "DULCE"]}, {"id": 41, "nombre": "Chance Eau de Toilette", "marca": "Chanel", "genero": "Mujeres", "img": "imagenes/F98.jpg", "cod": "F98", "categorias": ["CITRICO", "FLORAL"]}, {"id": 42, "nombre": "Coco Mademoiselle", "marca": "Chanel", "genero": "Mujeres", "img": "imagenes/F26.jpg", "cod": "F26", "categorias": ["CITRICO", "FLORAL"]}, {"id": 43, "nombre": "Light Blue", "marca": "Dolce & Gabbana", "genero": "Mujeres", "img": "imagenes/F28.jpg", "cod": "F28", "categorias": ["CITRICO", "FRESCO"]}, {"id": 44, "nombre": "Ange ou Demon", "marca": "Givenchy", "genero": "Mujeres", "img": "imagenes/F29.jpg", "cod": "F29", "categorias": ["CALIDO_AMBARADO", "DULCE", "FLORAL"]}, {"id": 45, "nombre": "Organza", "marca": "Givenchy", "genero": "Mujeres", "img": "imagenes/F30.jpg", "cod": "F30", "categorias": ["CALIDO_AMBARADO", "DULCE", "FLORAL"]}, {"id": 46, "nombre": "360° Coral", "marca": "Perry Ellis", "genero": "Mujeres", "img": "imagenes/F70.jpg", "cod": "F70", "categorias": ["AFRUTADO", "FLORAL", "FRESCO"]}, {"id": 47, "nombre": "360° Coral", "marca": "Perry Ellis", "genero": "Mujeres", "img": "imagenes/F71.jpg", "cod": "F71", "categorias": ["AFRUTADO", "FLORAL", "FRESCO"]}, {"id": 48, "nombre": "Scandal", "marca": "Jean Paul Gaultier", "genero": "Mujeres", "img": "imagenes/F36.jpg", "cod": "F36", "categorias": ["DULCE", "FLORAL", "GOURMAND"]}, {"id": 49, "nombre": "Scandal Intense", "marca": "Jean Paul Gaultier", "genero": "Mujeres", "img": "imagenes/F81.jpg", "cod": "F81", "categorias": ["CALIDO_AMBARADO", "DULCE", "GOURMAND"]}, {"id": 50, "nombre": "Eau de Lacoste L.12.12 Pour Elle Sparkling", "marca": "Lacoste", "genero": "Mujeres", "img": "imagenes/F39.jpg", "cod": "F39", "categorias": ["AFRUTADO", "CITRICO", "FRESCO"]}, {"id": 51, "nombre": "Touch of Pink", "marca": "Lacoste", "genero": "Mujeres", "img": "imagenes/F38.jpg", "cod": "F38", "categorias": ["AFRUTADO", "DULCE", "FLORAL"]}, {"id": 52, "nombre": "Lady Million", "marca": "Rabanne", "genero": "Mujeres", "img": "imagenes/F63.jpg", "cod": "F63", "categorias": ["CALIDO_AMBARADO", "DULCE", "FLORAL"]}, {"id": 53, "nombre": "Olympéa", "marca": "Rabanne", "genero": "Mujeres", "img": "imagenes/F64.jpg", "cod": "F64", "categorias": ["DULCE", "GOURMAND"]}, {"id": 54, "nombre": "Fame", "marca": "Rabanne", "genero": "Mujeres", "img": "imagenes/F62.jpg", "cod": "F62", "categorias": ["AFRUTADO", "DULCE", "FLORAL"]}, {"id": 55, "nombre": "Dazzle", "marca": "Paris Hilton", "genero": "Mujeres", "img": "imagenes/F67.jpg", "cod": "F67", "categorias": ["AFRUTADO", "DULCE", "FLORAL"]}, {"id": 56, "nombre": "Heiress", "marca": "Paris Hilton", "genero": "Mujeres", "img": "imagenes/F66.jpg", "cod": "F66", "categorias": ["AFRUTADO", "FLORAL"]}, {"id": 57, "nombre": "Can Can", "marca": "Paris Hilton", "genero": "Mujeres", "img": "imagenes/F65.jpg", "cod": "F65", "categorias": ["AFRUTADO", "DULCE", "FLORAL"]}, {"id": 58, "nombre": "Paris Hilton", "marca": "Paris Hilton", "genero": "Mujeres", "img": "imagenes/F69.jpg", "cod": "F69", "categorias": ["AFRUTADO", "FLORAL", "FRESCO"]}, {"id": 59, "nombre": "Rosé Rush", "marca": "Paris Hilton", "genero": "Mujeres", "img": "imagenes/F68.jpg", "cod": "F68", "categorias": ["AFRUTADO", "FLORAL"]}, {"id": 60, "nombre": "CCORI Pasión", "marca": "Yanbal", "genero": "Mujeres", "img": "imagenes/F95.jpg", "cod": "F95", "categorias": ["CALIDO_AMBARADO", "DULCE", "FLORAL"]}, {"id": 61, "nombre": "Coconut Passion", "marca": "Victoria's Secret", "genero": "Mujeres", "img": "imagenes/F74.jpg", "cod": "F74", "categorias": ["AFRUTADO", "DULCE", "GOURMAND"]}, {"id": 62, "nombre": "Bombshell", "marca": "Victoria's Secret", "genero": "Mujeres", "img": "imagenes/F87.jpg", "cod": "F87", "categorias": ["AFRUTADO", "DULCE", "FLORAL"]}, {"id": 63, "nombre": "Juiced Berry", "marca": "Victoria's Secret", "genero": "Mujeres", "img": "imagenes/F86.jpg", "cod": "F86", "categorias": ["AFRUTADO", "DULCE"]}, {"id": 64, "nombre": "Victoria's Secret Pink Soft & Dreamy", "marca": "Victoria's Secret", "genero": "Mujeres", "img": "imagenes/F76.jpg", "cod": "F76", "categorias": ["ATALCADO", "DULCE"]}, {"id": 65, "nombre": "Pure Seduction", "marca": "Victoria's Secret", "genero": "Mujeres", "img": "imagenes/F85.jpg", "cod": "F85", "categorias": ["AFRUTADO", "DULCE", "FLORAL"]}, {"id": 66, "nombre": "Bright Crystal", "marca": "Versace", "genero": "Mujeres", "img": "imagenes/F77.jpg", "cod": "F77", "categorias": ["AFRUTADO", "FLORAL", "FRESCO"]}, {"id": 67, "nombre": "Yellow Diamond", "marca": "Versace", "genero": "Mujeres", "img": "imagenes/F79.jpg", "cod": "F79", "categorias": ["CITRICO", "FLORAL"]}, {"id": 68, "nombre": "Versace Pour Femme Dylan Blue", "marca": "Versace", "genero": "Mujeres", "img": "imagenes/F78.jpg", "cod": "F78", "categorias": ["AFRUTADO", "FLORAL"]}, {"id": 69, "nombre": "Delina", "marca": "Parfums de Marly", "genero": "Mujeres", "img": "imagenes/F51.jpg", "cod": "F51", "categorias": ["AFRUTADO", "DULCE", "FLORAL"]}, {"id": 70, "nombre": "Yara Candy", "marca": "Lattafa Perfumes", "genero": "Mujeres", "img": "imagenes/F47.jpg", "cod": "F47", "categorias": ["AFRUTADO", "DULCE", "GOURMAND"]}, {"id": 71, "nombre": "Eclaire", "marca": "Lattafa Perfumes", "genero": "Mujeres", "img": "imagenes/F88.jpg", "cod": "F88", "categorias": ["DULCE", "GOURMAND"]}, {"id": 72, "nombre": "Velvet Gold", "marca": "Orientica Premium", "genero": "Mujeres", "img": "imagenes/F59.jpg", "cod": "F59", "categorias": ["ATALCADO", "CALIDO_AMBARADO", "DULCE"]}, {"id": 73, "nombre": "Yara Moi", "marca": "Lattafa Perfumes", "genero": "Mujeres", "img": "imagenes/F49.jpg", "cod": "F49", "categorias": ["AFRUTADO", "CALIDO_AMBARADO", "DULCE", "FLORAL"]}, {"id": 74, "nombre": "Attrape-Rêves", "marca": "Louis Vuitton", "genero": "Mujeres", "img": "imagenes/F96.jpg", "cod": "F96", "categorias": ["CALIDO_AMBARADO", "DULCE", "FLORAL"]}, {"id": 75, "nombre": "Bade'e Al Oud Sublime", "marca": "Lattafa Perfumes", "genero": "Unisex", "img": "imagenes/F45.jpg", "cod": "F45", "categorias": ["AMADERADO", "CALIDO_AMBARADO", "DULCE"]}, {"id": 76, "nombre": "Ahli Vega", "marca": "Ahli", "genero": "Unisex", "img": "imagenes/F99.jpg", "cod": "F99", "categorias": ["CALIDO_AMBARADO", "DULCE"]}, {"id": 77, "nombre": "Yara", "marca": "Lattafa Perfumes", "genero": "Mujeres", "img": "imagenes/F44.jpg", "cod": "F44", "categorias": ["ATALCADO", "DULCE", "GOURMAND"]}, {"id": 78, "nombre": "Mayar", "marca": "Lattafa Perfumes", "genero": "Mujeres", "img": "imagenes/F42.jpg", "cod": "F42", "categorias": ["AFRUTADO", "DULCE", "FLORAL"]}, {"id": 79, "nombre": "Bade'e Al Oud Honor & Glory", "marca": "Lattafa Perfumes", "genero": "Unisex", "img": "imagenes/F43.jpg", "cod": "F43", "categorias": ["CALIDO_AMBARADO", "DULCE", "ESPECIADO"]}, {"id": 80, "nombre": "Haya", "marca": "Lattafa Perfumes", "genero": "Mujeres", "img": "imagenes/F89.jpg", "cod": "F89", "categorias": ["AFRUTADO", "FLORAL", "GOURMAND"]}, {"id": 81, "nombre": "Il Femme", "marca": "ILMIN Parfums", "genero": "Unisex", "img": "imagenes/F32.jpg", "cod": "F32", "categorias": ["ATALCADO", "FLORAL"]}, {"id": 82, "nombre": "Yum Yum", "marca": "Armaf", "genero": "Mujeres", "img": "imagenes/F7.jpg", "cod": "F7", "categorias": ["DULCE", "GOURMAND"]}, {"id": 83, "nombre": "Ahli Kapoos", "marca": "Ahli", "genero": "Unisex", "img": "imagenes/F56.jpg", "cod": "F56", "categorias": ["AMADERADO", "CALIDO_AMBARADO", "ESPECIADO"]}, {"id": 84, "nombre": "Noble Blush", "marca": "Lattafa Perfumes", "genero": "Mujeres", "img": "imagenes/F46.jpg", "cod": "F46", "categorias": ["DULCE", "FLORAL", "GOURMAND"]}, {"id": 85, "nombre": "Amber Rouge", "marca": "Orientica Premium", "genero": "Unisex", "img": "imagenes/F60.jpg", "cod": "F60", "categorias": ["CALIDO_AMBARADO", "DULCE", "ESPECIADO"]}, {"id": 86, "nombre": "Mayar Natural Intense", "marca": "Lattafa Perfumes", "genero": "Mujeres", "img": "imagenes/F41.jpg", "cod": "F41", "categorias": ["AFRUTADO", "FLORAL", "FRESCO"]}, {"id": 87, "nombre": "Island Bliss", "marca": "Armaf", "genero": "Mujeres", "img": "imagenes/F6.jpg", "cod": "F6", "categorias": ["AFRUTADO", "DULCE", "FRESCO"]}, {"id": 88, "nombre": "Bade'e Al Oud Amethyst", "marca": "Lattafa Perfumes", "genero": "Unisex", "img": "imagenes/F40.jpg", "cod": "F40", "categorias": ["CALIDO_AMBARADO", "DULCE", "FLORAL"]}, {"id": 89, "nombre": "Royal Amber", "marca": "Orientica Premium", "genero": "Unisex", "img": "imagenes/F61.jpg", "cod": "F61", "categorias": ["CALIDO_AMBARADO", "DULCE"]}, {"id": 90, "nombre": "Yara Tous", "marca": "Lattafa Perfumes", "genero": "Mujeres", "img": "imagenes/F48.jpg", "cod": "F48", "categorias": ["AFRUTADO", "DULCE", "FLORAL"]}, {"id": 91, "nombre": "Santal 33", "marca": "Le Labo", "genero": "Unisex", "img": "imagenes/F52.jpg", "cod": "F52", "categorias": ["AMADERADO", "ESPECIADO"]}, {"id": 92, "nombre": "Baccarat Rouge 540", "marca": "Maison Francis Kurkdjian", "genero": "Unisex", "img": "imagenes/F8.jpg", "cod": "F8", "categorias": ["AMADERADO", "CALIDO_AMBARADO", "ESPECIADO"]}, {"id": 93, "nombre": "Valentino Donna Born In Roma", "marca": "Valentino", "genero": "Mujeres", "img": "imagenes/F82.jpg", "cod": "F82", "categorias": ["DULCE", "FLORAL", "GOURMAND"]}, {"id": 94, "nombre": "Vanilla Freak", "marca": "Lattafa Perfumes", "genero": "Mujeres", "img": "imagenes/F91.jpg", "cod": "F91", "categorias": ["DULCE", "GOURMAND"]}, {"id": 95, "nombre": "Berry On Top", "marca": "Lattafa Perfumes", "genero": "Mujeres", "img": "imagenes/F92.jpg", "cod": "F92", "categorias": ["AFRUTADO", "DULCE"]}, {"id": 96, "nombre": "Mallow Maddnes", "marca": "Lattafa Perfumes", "genero": "Mujeres", "img": "imagenes/F93.jpg", "cod": "F93", "categorias": ["DULCE", "GOURMAND"]}, {"id": 97, "nombre": "Yara Elixir", "marca": "Lattafa Perfumes", "genero": "Mujeres", "img": "imagenes/F97.jpg", "cod": "F97", "categorias": ["DULCE", "GOURMAND"]}, {"id": 98, "nombre": "Her Confession", "marca": "Lattafa Perfumes", "genero": "Mujeres", "img": "imagenes/F100.jpg", "cod": "F100", "categorias": ["DULCE", "FLORAL", "GOURMAND"]}, {"id": 99, "nombre": "Odyssey Candee", "marca": "Armaf", "genero": "Mujeres", "img": "imagenes/F102.jpg", "cod": "F102", "categorias": ["DULCE", "GOURMAND"]}, {"id": 100, "nombre": "Givenchy pour Homme Blue Label", "marca": "Givenchy", "genero": "Hombres", "cod": "M30", "categorias": ["AROMATICO", "CITRICO", "FRESCO"], "img": "imagenes/M30.jpg"}, {"id": 101, "nombre": "Fahrenheit", "marca": "Dior", "genero": "Hombres", "cod": "M25", "categorias": ["AMADERADO", "ESPECIADO"], "img": "imagenes/M25.jpg"}, {"id": 102, "nombre": "Eternity For Men", "marca": "Calvin Klein", "genero": "Hombres", "cod": "M112", "categorias": ["AROMATICO", "FRESCO"], "img": "imagenes/M112.jpg"}, {"id": 103, "nombre": "CK One", "marca": "Calvin Klein", "genero": "Unisex", "cod": "M12", "categorias": ["CITRICO", "FRESCO", "VERDE_NATURAL"], "img": "imagenes/M12.jpg"}, {"id": 104, "nombre": "212 Men", "marca": "Carolina Herrera", "genero": "Hombres", "cod": "M16", "categorias": ["CITRICO", "ESPECIADO", "FRESCO"], "img": "imagenes/M16.jpg"}, {"id": 105, "nombre": "Boss in Motion", "marca": "Hugo Boss", "genero": "Hombres", "cod": "M32", "categorias": ["CITRICO", "ESPECIADO"], "img": "imagenes/M32.jpg"}, {"id": 106, "nombre": "Boss Bottled", "marca": "Hugo Boss", "genero": "Hombres", "cod": "M33", "categorias": ["AFRUTADO", "ESPECIADO"], "img": "imagenes/M33.jpg"}, {"id": 107, "nombre": "Acqua di Gio", "marca": "Giorgio Armani", "genero": "Hombres", "cod": "M27", "categorias": ["CITRICO", "FRESCO"], "img": "imagenes/M27.jpg"}, {"id": 108, "nombre": "Le Male", "marca": "Jean Paul Gaultier", "genero": "Hombres", "cod": "M36", "categorias": ["AROMATICO", "DULCE"], "img": "imagenes/M36.jpg"}, {"id": 109, "nombre": "Silver Mountain Water", "marca": "Creed", "genero": "Unisex", "cod": "M22", "categorias": ["CITRICO", "FRESCO"], "img": "imagenes/M22.jpg"}, {"id": 110, "nombre": "Black XS", "marca": "Rabanne", "genero": "Hombres", "cod": "M59", "categorias": ["AFRUTADO", "DULCE", "GOURMAND"], "img": "imagenes/M59.jpg"}, {"id": 111, "nombre": "L'Eau d'Issey Pour Homme", "marca": "Issey Miyake", "genero": "Hombres", "cod": "M35", "categorias": ["CITRICO", "FRESCO"], "img": "imagenes/M35.jpg"}, {"id": 112, "nombre": "Ferrari Black", "marca": "Ferrari", "genero": "Hombres", "cod": "M26", "categorias": ["CITRICO", "FRESCO"], "img": "imagenes/M26.jpg"}, {"id": 113, "nombre": "Nautica Voyage", "marca": "Nautica", "genero": "Hombres", "cod": "M53", "categorias": ["AFRUTADO", "FRESCO", "VERDE_NATURAL"], "img": "imagenes/M53.jpg"}, {"id": 114, "nombre": "Light Blue pour Homme", "marca": "Dolce & Gabbana", "genero": "Hombres", "cod": "M23", "categorias": ["CITRICO", "FRESCO"], "img": "imagenes/M23.jpg"}, {"id": 115, "nombre": "Blue Seduction", "marca": "Antonio Banderas", "genero": "Hombres", "cod": "M8", "categorias": ["AFRUTADO", "ESPECIADO", "FRESCO"], "img": "imagenes/M8.jpg"}, {"id": 116, "nombre": "Polo Blue", "marca": "Ralph Lauren", "genero": "Hombres", "cod": "M74", "categorias": ["AFRUTADO", "FRESCO", "VERDE_NATURAL"], "img": "imagenes/M74.jpg"}, {"id": 117, "nombre": "Tobacco Vanille", "marca": "Tom Ford", "genero": "Unisex", "cod": "M77", "categorias": ["CALIDO_AMBARADO", "DULCE", "ESPECIADO", "GOURMAND"], "img": "imagenes/M77.jpg"}, {"id": 118, "nombre": "360° for Men", "marca": "Perry Ellis", "genero": "Hombres", "cod": "M72", "categorias": ["AROMATICO", "CITRICO", "FRESCO"], "img": "imagenes/M72.jpg"}, {"id": 119, "nombre": "360° Red for Men", "marca": "Perry Ellis", "genero": "Hombres", "cod": "M71", "categorias": ["CITRICO", "ESPECIADO"], "img": "imagenes/M71.jpg"}, {"id": 120, "nombre": "Red", "marca": "Lacoste", "genero": "Hombres", "cod": "M41", "categorias": ["CITRICO", "FRESCO"], "img": "imagenes/M41.jpg"}, {"id": 121, "nombre": "1 Million", "marca": "Rabanne", "genero": "Hombres", "cod": "M68", "categorias": ["CALIDO_AMBARADO", "DULCE", "ESPECIADO"], "img": "imagenes/M68.jpg"}, {"id": 122, "nombre": "Starwalker", "marca": "Montblanc", "genero": "Hombres", "cod": "M50", "categorias": ["CITRICO", "FRESCO"], "img": "imagenes/M50.jpg"}, {"id": 123, "nombre": "Only The Brave", "marca": "Diesel", "genero": "Hombres", "cod": "M21", "categorias": ["CITRICO", "ESPECIADO"], "img": "imagenes/M21.jpg"}, {"id": 124, "nombre": "Lapidus Pour Homme", "marca": "Ted Lapidus", "genero": "Hombres", "cod": "M104", "categorias": ["AMADERADO", "AROMATICO", "CITRICO"], "img": "imagenes/M104.jpg"}, {"id": 125, "nombre": "Tommy", "marca": "Tommy Hilfiger", "genero": "Hombres", "cod": "M76", "categorias": ["AROMATICO", "CITRICO", "FRESCO"], "img": "imagenes/M76.jpg"}, {"id": 126, "nombre": "Swiss Army Classic", "marca": "Victorinox Swiss Army", "genero": "Hombres", "cod": "M75", "categorias": ["AROMATICO", "CITRICO", "FRESCO"], "img": "imagenes/M75.jpg"}, {"id": 127, "nombre": "Boss Bottled Night", "marca": "Hugo Boss", "genero": "Hombres", "cod": "M111", "categorias": ["AMADERADO", "AROMATICO", "FRESCO"], "img": "imagenes/M111.jpg"}, {"id": 128, "nombre": "Aventus", "marca": "Creed", "genero": "Hombres", "cod": "M20", "categorias": ["AFRUTADO", "CITRICO"], "img": "imagenes/M20.jpg"}, {"id": 129, "nombre": "Eau de Lacoste L.12.12 White", "marca": "Lacoste", "genero": "Hombres", "cod": "M40", "categorias": ["AROMATICO", "CITRICO", "FRESCO"], "img": "imagenes/M40.jpg"}, {"id": 130, "nombre": "Eau de Lacoste L.12.12 Green", "marca": "Lacoste", "genero": "Hombres", "cod": "M42", "categorias": ["CITRICO", "FRESCO", "VERDE_NATURAL"], "img": "imagenes/M42.jpg"}, {"id": 131, "nombre": "Boss Orange for Men", "marca": "Hugo Boss", "genero": "Hombres", "cod": "M34", "categorias": ["AFRUTADO", "DULCE", "ESPECIADO"], "img": "imagenes/M34.jpg"}, {"id": 132, "nombre": "Santal 33", "marca": "Le Labo", "genero": "Unisex", "cod": "M49", "categorias": ["AMADERADO", "ESPECIADO"], "img": "imagenes/M49.jpg"}, {"id": 133, "nombre": "Jean Pascal", "marca": "Jean Pascal", "genero": "Hombres", "cod": "M57", "categorias": ["AMADERADO", "CALIDO_AMBARADO", "FLORAL"], "img": "imagenes/M57.jpg"}, {"id": 134, "nombre": "212 VIP Men", "marca": "Carolina Herrera", "genero": "Hombres", "cod": "M18", "categorias": ["DULCE", "ESPECIADO"], "img": "imagenes/M18.jpg"}, {"id": 135, "nombre": "Eros", "marca": "Versace", "genero": "Hombres", "cod": "M80", "categorias": ["AROMATICO", "DULCE", "FRESCO"], "img": "imagenes/M80.jpg"}, {"id": 136, "nombre": "Hugo Red", "marca": "Hugo Boss", "genero": "Hombres", "cod": "M109", "categorias": ["ESPECIADO", "FRESCO"], "img": "imagenes/M109.jpg"}, {"id": 137, "nombre": "Black XS L'Aphrodisiaque for Men", "marca": "Rabanne", "genero": "Hombres", "cod": "M60", "categorias": ["CALIDO_AMBARADO", "DULCE", "ESPECIADO"], "img": "imagenes/M60.jpg"}, {"id": 138, "nombre": "The Scent of Peace for Him", "marca": "Bond No. 9", "genero": "Hombres", "cod": "M55", "categorias": ["AMADERADO", "AROMATICO", "CALIDO_AMBARADO"], "img": "imagenes/M55.jpg"}, {"id": 139, "nombre": "Hugo Boss Unlimited", "marca": "Hugo Boss", "genero": "Hombres", "cod": "M110", "categorias": ["CITRICO", "FRESCO", "VERDE_NATURAL"], "img": "imagenes/M110.jpg"}, {"id": 140, "nombre": "Bleu de Chanel Eau de Parfum", "marca": "Chanel", "genero": "Hombres", "cod": "M19", "categorias": ["AMADERADO", "AROMATICO", "CITRICO"], "img": "imagenes/M19.jpg"}, {"id": 141, "nombre": "Bvlgari Man In Black", "marca": "Bvlgari", "genero": "Hombres", "cod": "M13", "categorias": ["CALIDO_AMBARADO", "DULCE", "ESPECIADO"], "img": "imagenes/M13.jpg"}, {"id": 142, "nombre": "Acqua di Gio Profumo", "marca": "Giorgio Armani", "genero": "Hombres", "cod": "M28", "categorias": ["AMADERADO", "ESPECIADO", "FRESCO"], "img": "imagenes/M28.jpg"}, {"id": 143, "nombre": "Solo", "marca": "Yanbal", "genero": "Hombres", "cod": "M98", "categorias": ["CITRICO", "FRESCO"], "img": "imagenes/M98.jpg"}, {"id": 144, "nombre": "Boss The Scent", "marca": "Hugo Boss", "genero": "Hombres", "cod": "M31", "categorias": ["CALIDO_AMBARADO", "DULCE", "ESPECIADO"], "img": "imagenes/M31.jpg"}, {"id": 145, "nombre": "Sauvage", "marca": "Dior", "genero": "Hombres", "cod": "M24", "categorias": ["CITRICO", "ESPECIADO", "FRESCO"], "img": "imagenes/M24.jpg"}, {"id": 146, "nombre": "Invictus Aqua", "marca": "Rabanne", "genero": "Hombres", "cod": "M62", "categorias": ["CITRICO", "FRESCO"], "img": "imagenes/M62.jpg"}, {"id": 147, "nombre": "Club de Nuit Intense Man", "marca": "Armaf", "genero": "Hombres", "cod": "M56", "categorias": ["AFRUTADO", "CITRICO"], "img": "imagenes/M56.jpg"}, {"id": 148, "nombre": "Layton", "marca": "Parfums de Marly", "genero": "Unisex", "cod": "M83", "categorias": ["AFRUTADO", "CALIDO_AMBARADO", "DULCE", "ESPECIADO"], "img": "imagenes/M83.jpg"}, {"id": 149, "nombre": "Emporio Armani Stronger With You", "marca": "Giorgio Armani", "genero": "Hombres", "cod": "M29", "categorias": ["DULCE", "ESPECIADO", "GOURMAND"], "img": "imagenes/M29.jpg"}, {"id": 150, "nombre": "Yves Saint Laurent Y", "marca": "Yves Saint Laurent", "genero": "Hombres", "cod": "M101", "categorias": ["AROMATICO", "FRESCO"], "img": "imagenes/M101.jpg"}, {"id": 151, "nombre": "Pure XS", "marca": "Rabanne", "genero": "Hombres", "cod": "M69", "categorias": ["DULCE", "ESPECIADO", "GOURMAND"], "img": "imagenes/M69.jpg"}, {"id": 152, "nombre": "212 VIP Black", "marca": "Carolina Herrera", "genero": "Hombres", "cod": "M17", "categorias": ["AROMATICO", "DULCE", "ESPECIADO"], "img": "imagenes/M17.jpg"}, {"id": 153, "nombre": "1 Million Lucky", "marca": "Rabanne", "genero": "Hombres", "cod": "M66", "categorias": ["AFRUTADO", "DULCE"], "img": "imagenes/M66.jpg"}, {"id": 154, "nombre": "Ombre Nomade", "marca": "Louis Vuitton", "genero": "Unisex", "cod": "M102", "categorias": ["AMADERADO", "CALIDO_AMBARADO", "ESPECIADO"], "img": "imagenes/M102.jpg"}, {"id": 155, "nombre": "Amber Oud", "marca": "Al Haramain Perfumes", "genero": "Unisex", "cod": "M7", "categorias": ["CALIDO_AMBARADO", "DULCE"], "img": "imagenes/M7.jpg"}, {"id": 156, "nombre": "Eros Flame", "marca": "Versace", "genero": "Hombres", "cod": "M81", "categorias": ["CITRICO", "ESPECIADO"], "img": "imagenes/M81.jpg"}, {"id": 157, "nombre": "Erba Pura", "marca": "Xerjoff", "genero": "Hombres", "cod": "M103", "categorias": ["AFRUTADO", "DULCE"], "img": "imagenes/M103.jpg"}, {"id": 158, "nombre": "Bad Boy", "marca": "Carolina Herrera", "genero": "Hombres", "cod": "M14", "categorias": ["DULCE", "ESPECIADO"], "img": "imagenes/M14.jpg"}, {"id": 159, "nombre": "Le Beau", "marca": "Jean Paul Gaultier", "genero": "Hombres", "cod": "M37", "categorias": ["DULCE", "GOURMAND"], "img": "imagenes/M37.jpg"}, {"id": 160, "nombre": "Hawas Ice", "marca": "Rasasi", "genero": "Hombres", "cod": "M96", "categorias": ["AFRUTADO", "CITRICO", "DULCE", "FRESCO"], "img": "imagenes/M96.jpg"}, {"id": 161, "nombre": "Emeer", "marca": "Lattafa Perfumes", "genero": "Unisex", "cod": "M87", "categorias": ["AMADERADO", "AROMATICO", "FRESCO"], "img": "imagenes/M87.jpg"}, {"id": 162, "nombre": "Exclusive Azure Fantasy", "marca": "Orientica Premium", "genero": "Unisex", "cod": "M58", "categorias": ["AMADERADO", "FLORAL", "FRESCO"], "img": "imagenes/M58.jpg"}, {"id": 163, "nombre": "Amber Oud Dubai Night", "marca": "Al Haramain Perfumes", "genero": "Hombres", "cod": "M88", "categorias": ["AMADERADO", "CALIDO_AMBARADO", "DULCE"], "img": "imagenes/M88.jpg"}, {"id": 164, "nombre": "His Confession", "marca": "Lattafa Perfumes", "genero": "Hombres", "cod": "M108", "categorias": ["AROMATICO", "CALIDO_AMBARADO", "DULCE"], "img": "imagenes/M108.jpg"}, {"id": 165, "nombre": "Odyssey Spectra", "marca": "Armaf", "genero": "Unisex", "cod": "M6", "categorias": ["AMADERADO", "CALIDO_AMBARADO", "ESPECIADO"], "img": "imagenes/M6.jpg"}, {"id": 166, "nombre": "Eros Najim", "marca": "Versace", "genero": "Hombres", "cod": "M93", "categorias": ["AMADERADO", "CALIDO_AMBARADO", "DULCE"], "img": "imagenes/M93.jpg"}, {"id": 167, "nombre": "Asad Bourbon", "marca": "Lattafa Perfumes", "genero": "Hombres", "cod": "M48", "categorias": ["CALIDO_AMBARADO", "DULCE", "ESPECIADO"], "img": "imagenes/M48.jpg"}, {"id": 168, "nombre": "Beach Party", "marca": "Armaf", "genero": "Unisex", "cod": "M85", "categorias": ["AFRUTADO", "FRESCO"], "img": "imagenes/M85.jpg"}, {"id": 169, "nombre": "Odyssey Dubai Chocolate", "marca": "Armaf", "genero": "Unisex", "cod": "M107", "categorias": ["DULCE", "GOURMAND"], "img": "imagenes/M107.jpg"}, {"id": 170, "nombre": "Odyssey Mandarin Sky Elixir", "marca": "Armaf", "genero": "Unisex", "cod": "M4", "categorias": ["CALIDO_AMBARADO", "CITRICO", "DULCE"], "img": "imagenes/M4.jpg"}, {"id": 171, "nombre": "Odyssey Artisto", "marca": "Armaf", "genero": "Unisex", "cod": "M89", "categorias": ["AFRUTADO", "DULCE", "GOURMAND"], "img": "imagenes/M89.jpg"}, {"id": 172, "nombre": "9PM Elixir", "marca": "Afnan", "genero": "Unisex", "cod": "M86", "categorias": ["CALIDO_AMBARADO", "DULCE", "ESPECIADO"], "img": "imagenes/M86.jpg"}, {"id": 173, "nombre": "Valentino Uomo Born in Roma Ivory", "marca": "Valentino", "genero": "Hombres", "cod": "M91", "categorias": ["AMADERADO", "AROMATICO", "CALIDO_AMBARADO"], "img": "imagenes/M91.jpg"}, {"id": 174, "nombre": "Odyssey Bahamas", "marca": "Armaf", "genero": "Unisex", "cod": "M95", "categorias": ["AFRUTADO", "CALIDO_AMBARADO", "FRESCO"], "img": "imagenes/M95.jpg"}, {"id": 175, "nombre": "Odyssey Go Mango", "marca": "Armaf", "genero": "Unisex", "cod": "M94", "categorias": ["AFRUTADO", "DULCE"], "img": "imagenes/M94.jpg"}, {"id": 176, "nombre": "Odyssey Marshmallow", "marca": "Armaf", "genero": "Unisex", "cod": "M84", "categorias": ["DULCE", "GOURMAND"], "img": "imagenes/M84.jpg"}, {"id": 177, "nombre": "Asad Elixir", "marca": "Lattafa Perfumes", "genero": "Hombres", "cod": "M105", "categorias": ["CALIDO_AMBARADO", "DULCE", "ESPECIADO"], "img": "imagenes/M105.jpg"}, {"id": 178, "nombre": "9 PM Night Out", "marca": "Afnan", "genero": "Unisex", "cod": "M92", "categorias": ["CALIDO_AMBARADO", "DULCE", "GOURMAND"], "img": "imagenes/M92.jpg"}, {"id": 179, "nombre": "Ohm", "marca": "Yanbal", "genero": "Hombres", "cod": "M97", "categorias": ["AROMATICO", "CITRICO"], "img": "imagenes/M97.jpg"}, {"id": 180, "nombre": "Khamrah Waha", "marca": "Lattafa Perfumes", "genero": "Unisex", "cod": "M106", "categorias": ["AROMATICO", "CITRICO", "FRESCO"], "img": "imagenes/M106.jpg"}, {"id": 181, "nombre": "King Soleil", "marca": "Bharara", "genero": "Unisex", "cod": "M90", "categorias": ["AMADERADO", "CITRICO", "DULCE"], "img": "imagenes/M90.jpg"}, {"id": 182, "nombre": "Valentino Uomo Born in Roma", "marca": "Valentino", "genero": "Hombres", "cod": "M79", "categorias": ["AROMATICO", "FRESCO"], "img": "imagenes/M79.jpg"}, {"id": 183, "nombre": "Toy Boy", "marca": "Moschino", "genero": "Hombres", "cod": "M52", "categorias": ["AMADERADO", "ESPECIADO", "FLORAL"], "img": "imagenes/M52.jpg"}, {"id": 184, "nombre": "Arabians Tonka", "marca": "Montale", "genero": "Unisex", "cod": "M54", "categorias": ["CALIDO_AMBARADO", "DULCE", "ESPECIADO"], "img": "imagenes/M54.jpg"}, {"id": 185, "nombre": "Invictus Onyx Collector Edition", "marca": "Rabanne", "genero": "Hombres", "cod": "M64", "categorias": ["CALIDO_AMBARADO", "ESPECIADO"], "img": "imagenes/M64.jpg"}, {"id": 186, "nombre": "Le Male Le Parfum", "marca": "Jean Paul Gaultier", "genero": "Hombres", "cod": "M38", "categorias": ["CALIDO_AMBARADO", "DULCE", "ESPECIADO"], "img": "imagenes/M38.jpg"}, {"id": 187, "nombre": "Bade'e Al Oud Oud for Glory", "marca": "Lattafa Perfumes", "genero": "Unisex", "cod": "M46", "categorias": ["AMADERADO", "CALIDO_AMBARADO", "ESPECIADO"], "img": "imagenes/M46.jpg"}, {"id": 188, "nombre": "Invictus", "marca": "Rabanne", "genero": "Hombres", "cod": "M61", "categorias": ["CITRICO", "FRESCO"], "img": "imagenes/M61.jpg"}, {"id": 189, "nombre": "9pm", "marca": "Afnan", "genero": "Hombres", "cod": "M2", "categorias": ["DULCE", "ESPECIADO", "GOURMAND"], "img": "imagenes/M2.jpg"}, {"id": 190, "nombre": "Polo Red", "marca": "Ralph Lauren", "genero": "Hombres", "cod": "M73", "categorias": ["AFRUTADO", "CITRICO", "ESPECIADO"], "img": "imagenes/M73.jpg"}, {"id": 191, "nombre": "212 Heroes", "marca": "Carolina Herrera", "genero": "Hombres", "cod": "M15", "categorias": ["ESPECIADO", "FRESCO"], "img": "imagenes/M15.jpg"}, {"id": 192, "nombre": "Scandal Pour Homme", "marca": "Jean Paul Gaultier", "genero": "Hombres", "cod": "M82", "categorias": ["AROMATICO", "DULCE", "GOURMAND"], "img": "imagenes/M82.jpg"}, {"id": 193, "nombre": "Phantom", "marca": "Rabanne", "genero": "Hombres", "cod": "M70", "categorias": ["AROMATICO", "CITRICO", "DULCE"], "img": "imagenes/M70.jpg"}, {"id": 194, "nombre": "Sauvage Elixir", "marca": "Dior", "genero": "Hombres", "cod": "M99", "categorias": ["CALIDO_AMBARADO", "ESPECIADO"], "img": "imagenes/M99.jpg"}, {"id": 195, "nombre": "Oud Saffron", "marca": "Orientica Premium", "genero": "Unisex", "cod": "M78", "categorias": ["CALIDO_AMBARADO", "DULCE", "ESPECIADO"], "img": "imagenes/M78.jpg"}, {"id": 196, "nombre": "9am", "marca": "Afnan", "genero": "Mujeres", "cod": "M1", "categorias": ["CITRICO", "FRESCO"], "img": "imagenes/M1.jpg"}, {"id": 197, "nombre": "1 Million Elixir", "marca": "Rabanne", "genero": "Hombres", "cod": "M65", "categorias": ["CALIDO_AMBARADO", "DULCE", "ESPECIADO"], "img": "imagenes/M65.jpg"}, {"id": 198, "nombre": "Asad", "marca": "Lattafa Perfumes", "genero": "Hombres", "cod": "M43", "categorias": ["CALIDO_AMBARADO", "DULCE", "ESPECIADO"], "img": "imagenes/M43.jpg"}, {"id": 199, "nombre": "King", "marca": "Bharara", "genero": "Hombres", "cod": "M11", "categorias": ["AFRUTADO", "CITRICO", "DULCE"], "img": "imagenes/M11.jpg"}, {"id": 200, "nombre": "Khamrah", "marca": "Lattafa Perfumes", "genero": "Unisex", "cod": "M45", "categorias": ["CALIDO_AMBARADO", "DULCE", "ESPECIADO", "GOURMAND"], "img": "imagenes/M45.jpg"}, {"id": 201, "nombre": "Caballo Pour Homme", "marca": "Armaf", "genero": "Hombres", "cod": "M3", "categorias": ["AMADERADO", "CALIDO_AMBARADO", "CITRICO"], "img": "imagenes/M3.jpg"}, {"id": 202, "nombre": "Invictus Victory Elixir", "marca": "Rabanne", "genero": "Hombres", "cod": "M63", "categorias": ["AROMATICO", "CALIDO_AMBARADO", "DULCE"], "img": "imagenes/M63.jpg"}, {"id": 203, "nombre": "Valentino Uomo Born In Roma Intense", "marca": "Valentino", "genero": "Hombres", "cod": "M100", "categorias": ["CALIDO_AMBARADO", "DULCE"], "img": "imagenes/M100.jpg"}, {"id": 204, "nombre": "1 Million Royal", "marca": "Rabanne", "genero": "Hombres", "cod": "M67", "categorias": ["CALIDO_AMBARADO", "DULCE"], "img": "imagenes/M67.jpg"}, {"id": 205, "nombre": "Bleu", "marca": "Bharara", "genero": "Hombres", "cod": "M9", "categorias": ["AMADERADO", "AROMATICO", "CITRICO"], "img": "imagenes/M9.jpg"}, {"id": 206, "nombre": "Niche", "marca": "Bharara", "genero": "Unisex", "cod": "M10", "categorias": ["AMADERADO", "CALIDO_AMBARADO", "FLORAL"], "img": "imagenes/M10.jpg"}, {"id": 207, "nombre": "Le Male Elixir", "marca": "Jean Paul Gaultier", "genero": "Hombres", "cod": "M39", "categorias": ["CALIDO_AMBARADO", "DULCE", "GOURMAND"], "img": "imagenes/M39.jpg"}, {"id": 208, "nombre": "Odyssey Mandarin Sky", "marca": "Armaf", "genero": "Hombres", "cod": "M5", "categorias": ["CITRICO", "DULCE"], "img": "imagenes/M5.jpg"}, {"id": 209, "nombre": "Toy 2 Pearl", "marca": "Moschino", "genero": "Unisex", "cod": "M51", "categorias": ["CITRICO", "FRESCO"], "img": "imagenes/M51.jpg"}, {"id": 210, "nombre": "Musamam", "marca": "Lattafa Perfumes", "genero": "Unisex", "cod": "M47", "categorias": ["AMADERADO", "AROMATICO", "ESPECIADO"], "img": "imagenes/M47.jpg"}, {"id": 211, "nombre": "Khamrah Qhawa", "marca": "Lattafa Perfumes", "genero": "Unisex", "cod": "M44", "categorias": ["CALIDO_AMBARADO", "DULCE", "ESPECIADO", "GOURMAND"], "img": "imagenes/M44.jpg"}];
+const MARCAS = ["Afnan", "Ahli", "Al Haramain Perfumes", "Antonio Banderas", "Ariana Grande", "Armaf", "Bharara", "Bond No. 9", "Britney Spears", "Burberry", "Bvlgari", "Calvin Klein", "Carolina Herrera", "Chanel", "Creed", "Diesel", "Dior", "Dolce & Gabbana", "Donna Karan", "Ferrari", "Giorgio Armani", "Givenchy", "Halloween", "Hugo Boss", "ILMIN Parfums", "Issey Miyake", "Jean Pascal", "Jean Paul Gaultier", "Katy Perry", "Lacoste", "Lancôme", "Lattafa Perfumes", "Le Labo", "Louis Vuitton", "Maison Francis Kurkdjian", "Montale", "Montblanc", "Moschino", "Nautica", "Orientica Premium", "Parfums de Marly", "Paris Hilton", "Perry Ellis", "Rabanne", "Ralph Lauren", "Rasasi", "Ted Lapidus", "Tom Ford", "Tommy Hilfiger", "Valentino", "Versace", "Victoria's Secret", "Victorinox Swiss Army", "Xerjoff", "Yanbal", "Yves Saint Laurent"];
+
+const grid = document.getElementById('grid');
+const counterEl = document.getElementById('counter');
+const emptyState = document.getElementById('emptyState');
+const searchInput = document.getElementById('search');
+const marcaSelect = document.getElementById('marcaSelect');
+const genderPills = Array.from(document.querySelectorAll('.pill'));
+const clearBtn = document.getElementById('clearFilters');
+
+let currentGenero = 'Todas';
+let currentMarca = 'Todas';
+let currentSearch = '';
+let filtered = DATA.slice();
+
+function normalize(s){
+  return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+}
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// Poblar el selector de marcas
+MARCAS.forEach(m=>{
+  const opt = document.createElement('option');
+  opt.value = m;
+  opt.textContent = m;
+  marcaSelect.appendChild(opt);
+});
+
+// ---------- Filtro "¿Qué tipo de aroma buscas?" ----------
+const AROMA_CATS = [
+  {id:'DULCE', emoji:'🍯', label:'Dulce'},
+  {id:'FRESCO', emoji:'🌊', label:'Fresco'},
+  {id:'CITRICO', emoji:'🍋', label:'Cítrico'},
+  {id:'FLORAL', emoji:'🌸', label:'Floral'},
+  {id:'AFRUTADO', emoji:'🍎', label:'Afrutado'},
+  {id:'AMADERADO', emoji:'🪵', label:'Amaderado'},
+  {id:'ESPECIADO', emoji:'🌶️', label:'Especiado'},
+  {id:'GOURMAND', emoji:'☕', label:'Gourmand'},
+  {id:'CALIDO_AMBARADO', emoji:'🧡', label:'Cálido / Ambarado'},
+  {id:'AROMATICO', emoji:'🌿', label:'Aromático'},
+  {id:'ATALCADO', emoji:'🧴', label:'Atalcado'},
+  {id:'VERDE_NATURAL', emoji:'🌱', label:'Verde / Natural'},
+];
+const selectedAromas = new Set();
+const aromaGrid = document.getElementById('aromaGrid');
+const aromaClearBtn = document.getElementById('aromaClear');
+const aromaCardEls = new Map();
+
+AROMA_CATS.forEach(cat=>{
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'aroma-card';
+  btn.setAttribute('aria-pressed','false');
+  btn.innerHTML = '<span class="aroma-emoji">'+cat.emoji+'</span><span class="aroma-label">'+cat.label+'</span>';
+  btn.addEventListener('click', ()=>{
+    if(selectedAromas.has(cat.id)){
+      selectedAromas.delete(cat.id);
+      btn.classList.remove('active');
+      btn.setAttribute('aria-pressed','false');
+    } else {
+      selectedAromas.add(cat.id);
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed','true');
+    }
+    updateAromaClearVisibility();
+    applyFilters();
+  });
+  aromaGrid.appendChild(btn);
+  aromaCardEls.set(cat.id, btn);
+});
+
+function updateAromaClearVisibility(){
+  aromaClearBtn.hidden = selectedAromas.size === 0;
+}
+updateAromaClearVisibility();
+
+aromaClearBtn.addEventListener('click', ()=>{
+  selectedAromas.clear();
+  aromaCardEls.forEach(btn=>{ btn.classList.remove('active'); btn.setAttribute('aria-pressed','false'); });
+  updateAromaClearVisibility();
+  applyFilters();
+});
+
+// Carga diferida de imágenes (IntersectionObserver)
+const lazyObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const img = entry.target;
+      if(img.dataset.src){
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
+      }
+      img.addEventListener('load', ()=>img.classList.add('loaded'), {once:true});
+      lazyObserver.unobserve(img);
+    }
+  });
+},{rootMargin:'500px 0px'});
+
+// Construir tarjetas una sola vez
+const cardEls = new Map();
+DATA.forEach((p, idx)=>{
+  const card = document.createElement('button');
+  card.type = 'button';
+  card.className = 'card';
+  card.dataset.id = p.id;
+  card.style.animationDelay = Math.min(idx*10,480)+'ms';
+  card.setAttribute('aria-label','Ver '+p.nombre);
+
+  const genEtiqueta = (p.genero === 'Mujeres' ? 'Para mujeres' : p.genero === 'Hombres' ? 'Para hombres' : 'Unisex') + (p.cod ? ' '+p.cod : '');
+  const genClase = p.genero === 'Mujeres' ? 'tag-mujeres' : p.genero === 'Hombres' ? 'tag-hombres' : 'tag-unisex';
+
+  card.innerHTML =
+    '<span class="card-frame"><img data-src="'+p.img+'" alt="'+escapeHtml(p.nombre)+'" decoding="async"/></span>'+
+    '<span class="card-caption">'+
+      '<span class="card-nombre">'+escapeHtml(p.nombre)+'</span>'+
+      (p.marca ? '<span class="card-marca">'+escapeHtml(p.marca)+'</span>' : '')+
+      '<span class="card-tag '+genClase+'">'+genEtiqueta+'</span>'+
+    '</span>';
+
+  card.addEventListener('click', ()=>openLightbox(p.id));
+  grid.appendChild(card);
+  cardEls.set(p.id, card);
+  lazyObserver.observe(card.querySelector('img'));
+});
+
+function applyFilters(){
+  const q = normalize(currentSearch.trim());
+  filtered = DATA.filter(p=>{
+    if(currentGenero !== 'Todas' && p.genero !== currentGenero) return false;
+    if(currentMarca !== 'Todas' && p.marca !== currentMarca) return false;
+    if(selectedAromas.size){
+      const cats = p.categorias || [];
+      for(const need of selectedAromas){
+        if(!cats.includes(need)) return false;
+      }
+    }
+    if(q){
+      const hay = normalize(p.nombre+' '+p.marca+' '+(p.cod||''));
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+  const visibleIds = new Set(filtered.map(p=>p.id));
+  cardEls.forEach((card, id)=>{
+    card.classList.toggle('hidden', !visibleIds.has(id));
+  });
+  counterEl.textContent = 'Mostrando '+filtered.length+' de '+DATA.length+' fragancias';
+  emptyState.hidden = filtered.length !== 0;
+}
+
+searchInput.addEventListener('input', e=>{ currentSearch = e.target.value; applyFilters(); });
+marcaSelect.addEventListener('change', e=>{ currentMarca = e.target.value; applyFilters(); });
+genderPills.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    genderPills.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    currentGenero = btn.dataset.genero;
+    applyFilters();
+  });
+});
+if(clearBtn){
+  clearBtn.addEventListener('click', ()=>{
+    currentSearch=''; currentMarca='Todas'; currentGenero='Todas';
+    searchInput.value=''; marcaSelect.value='Todas';
+    genderPills.forEach(b=>b.classList.toggle('active', b.dataset.genero==='Todas'));
+    selectedAromas.clear();
+    aromaCardEls.forEach(btn=>{ btn.classList.remove('active'); btn.setAttribute('aria-pressed','false'); });
+    updateAromaClearVisibility();
+    applyFilters();
+  });
+}
+
+/* ---------- Lightbox ---------- */
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbNombre = document.getElementById('lbNombre');
+const lbMarca = document.getElementById('lbMarca');
+const lbGenero = document.getElementById('lbGenero');
+const lbPosition = document.getElementById('lbPosition');
+let lbIndex = -1;
+
+function openLightbox(id){
+  lbIndex = filtered.findIndex(p=>p.id===id);
+  if(lbIndex===-1) lbIndex = 0;
+  renderLightbox();
+  lightbox.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){
+  lightbox.hidden = true;
+  document.body.style.overflow = '';
+}
+function renderLightbox(){
+  const p = filtered[lbIndex];
+  if(!p) return;
+  lbImg.src = p.img;
+  lbImg.alt = p.nombre;
+  lbNombre.textContent = p.nombre;
+  if(p.marca){ lbMarca.textContent = p.marca; lbMarca.hidden = false; } else { lbMarca.hidden = true; }
+  const genEtiqueta = (p.genero === 'Mujeres' ? 'Para mujeres' : p.genero === 'Hombres' ? 'Para hombres' : 'Unisex') + (p.cod ? ' '+p.cod : '');
+  const genClase = p.genero === 'Mujeres' ? 'tag-mujeres' : p.genero === 'Hombres' ? 'tag-hombres' : 'tag-unisex';
+  lbGenero.textContent = genEtiqueta;
+  lbGenero.className = 'card-tag '+genClase;
+  lbPosition.textContent = (lbIndex+1)+' / '+filtered.length;
+}
+function nextLb(){ if(!filtered.length) return; lbIndex = (lbIndex+1) % filtered.length; renderLightbox(); }
+function prevLb(){ if(!filtered.length) return; lbIndex = (lbIndex-1+filtered.length) % filtered.length; renderLightbox(); }
+
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+document.getElementById('lbNext').addEventListener('click', nextLb);
+document.getElementById('lbPrev').addEventListener('click', prevLb);
+lightbox.addEventListener('click', e=>{ if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', e=>{
+  if(lightbox.hidden) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowRight') nextLb();
+  if(e.key === 'ArrowLeft') prevLb();
+});
+
+let touchStartX = 0;
+lightbox.addEventListener('touchstart', e=>{ touchStartX = e.changedTouches[0].clientX; }, {passive:true});
+lightbox.addEventListener('touchend', e=>{
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if(Math.abs(dx) > 50){ dx > 0 ? prevLb() : nextLb(); }
+}, {passive:true});
+
+applyFilters();
+
+</script>
+</body>
+</html>
